@@ -1,0 +1,516 @@
+{% extends "navbar.html" %}
+{% block content %}
+<style>
+ /* Instagram Gradient Text */
+.gradient-text{
+background:linear-gradient(45deg,#e41506,#08e213,#6228d7);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+  *{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+/* BODY */
+body{
+background:#0b0f2a;
+color:white;
+overflow-x:hidden;
+position:relative;
+}
+
+/* STAR BACKGROUND */
+.stars, .stars2, .comets, .bubbles{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
+pointer-events:none;
+}
+
+.star, .star2, .comet, .bubble{
+position:absolute;
+border-radius:50%;
+}
+
+.star{
+width:2px;
+height:2px;
+background:white;
+animation:moveStars linear infinite;
+}
+.star2{
+width:2px;
+height:2px;
+background:#7df9ff;
+animation:moveStarsUp linear infinite;
+}
+@keyframes moveStars{
+0%{transform:translateY(-100vh);}
+100%{transform:translateY(100vh);}
+}
+@keyframes moveStarsUp{
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-100vh);}
+}
+
+/* COMET */
+.comet{
+width:2px;
+height:80px;
+background:linear-gradient(to bottom, white, transparent);
+animation:shootStar linear infinite;
+}
+@keyframes shootStar{
+0%{transform:translate(-10vw,-10vh) rotate(45deg);}
+100%{transform:translate(110vw,110vh) rotate(45deg);}
+}
+
+/* BUBBLES */
+.bubble{
+background: rgba(255,255,255,0.2);
+animation:floatBubble linear infinite;
+}
+@keyframes floatBubble{
+0%{transform:translateY(100vh);}
+50%{transform:translateY(50vh);}
+100%{transform:translateY(-10vh);}
+}
+
+/* HERO */
+.hero{
+height:65vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:0px;
+}
+.hero h1{
+font-size:60px;
+color:#7df9ff;
+text-shadow:0 0 20px #7df9ff;
+}
+.hero p{
+font-size:20px;
+margin-top:10px;
+}
+
+/* SECTIONS */
+section{
+padding:80px 10%;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+/* GLASS CARD */
+.card{
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(12px);
+padding:25px;
+border-radius:15px;
+border:1px solid rgba(255,255,255,0.1);
+transition:.4s;
+text-align:center;
+font-size:20px;
+font-weight:bold;
+animation:floatCard 4s ease-in-out infinite;
+}
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 30px #7df9ff;
+}
+@keyframes floatCard{
+0%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+100%{transform:translateY(0);}
+}
+
+/* FEATURE COLORS */
+.feature1{background:linear-gradient(135deg,#ff6a00,#ff2e63);}
+.feature2{background:linear-gradient(135deg,#00c9ff,#92fe9d);}
+.feature3{background:linear-gradient(135deg,#a18cd1,#fbc2eb);}
+.feature4{background:linear-gradient(135deg,#f7971e,#ffd200);}
+.feature5{background:linear-gradient(135deg,#43e97b,#38f9d7);}
+.feature6{background:linear-gradient(135deg,#fa709a,#fee140);}
+
+/* PRINCIPAL */
+.principal{
+display:flex;
+flex-wrap:wrap;
+gap:25px;
+align-items:center;
+}
+.principal img{
+width:180px;
+border-radius:50%;
+border:3px solid #7df9ff;
+}
+
+/* GALLERY */
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+}
+.gallery img{
+width:100%;
+border-radius:10px;
+transition:.4s;
+}
+.gallery img:hover{
+transform:scale(1.1);
+}
+
+/* CONTACT */
+.contact input,
+.contact textarea{
+width:100%;
+padding:12px;
+margin-bottom:10px;
+border:none;
+border-radius:8px;
+}
+.contact button{
+width:100%;
+padding:14px;
+background:#7df9ff;
+border:none;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+}
+/* CAROUSEL */
+.carousel{
+position:relative;
+overflow:hidden;
+border-radius:15px;
+margin:0 auto;
+max-width:800px;
+}
+.carousel-inner{
+display:flex;
+transition:transform 0.5s ease-in-out;
+}
+.carousel-item{
+min-width:100%;
+}
+.carousel-item img{
+width:100%;
+display:block;
+border-radius:15px;
+}
+.carousel button{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(0,0,0,0.5);
+color:white;
+border:none;
+padding:10px;
+cursor:pointer;
+font-size:24px;
+border-radius:50%;
+}
+.carousel .prev{left:10px;}
+.carousel .next{right:10px;}
+
+<!--scientist-->
+.scientist-section{
+  width:100%;
+  overflow:hidden;
+  margin-top:40px;
+}
+
+.card-track{
+  display:flex;
+  gap:40px;
+  animation:scrollCard 30s linear infinite;
+}
+
+.scientist-card{
+  min-width:300px;
+  padding:20px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(0,255,255,0.4);
+  border-radius:12px;
+  text-align:center;
+  backdrop-filter:blur(6px);
+  box-shadow:0 0 10px rgba(0,255,255,0.3);
+}
+
+.scientist-card img{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  margin-bottom:10px;
+}
+
+.scientist-card h3{
+  color:#7df9ff;
+  margin-bottom:6px;
+}
+
+.scientist-card p{
+  font-size:14px;
+  color:#ddd;
+}
+
+@keyframes scrollCard{
+  0%{
+    transform:translateX(100%);
+  }
+  100%{
+    transform:translateX(-100%);
+  }
+}
+.card-track:hover{
+animation-play-state:paused;
+}
+</style>
+<div class="stars" id="stars"></div>
+<div class="stars" id="stars2"></div>
+<div class="comets" id="comets"></div>
+<div class="bubbles" id="bubbles"></div>
+<!-- HERO -->
+<section class="hero">
+<div>
+<h1 class="gradient-text">স্কলার্স রেসিডেনশিয়াল স্কুল</h1>
+<p>কালাই, জয়পুরহাট</p>
+<p>উজ্জ্বল ভবিষ্যতের জন্য আধুনিক শিক্ষা</p>
+</div>
+</section>
+<!-- HERO STATISTICS -->
+<section style="padding:0px 10%; text-align:center; display:flex; justify-content:center; gap:50px; flex-wrap:wrap;">
+  <div style="flex:1; min-width:150px; background:rgba(255,255,255,0.08); backdrop-filter:blur(12px); border-radius:15px; padding:30px; box-shadow:0 0 20px rgba(0,255,255,0.3); transition:0.3s;">
+    <h2 id="studentsCounter" style="font-size:36px; color:#7df9ff; margin-bottom:10px;">0</h2>
+    <p style="color:#ccc; font-size:16px;">Students</p>
+  </div>
+  <div style="flex:1; min-width:150px; background:rgba(255,255,255,0.08); backdrop-filter:blur(12px); border-radius:15px; padding:30px; box-shadow:0 0 20px rgba(0,255,255,0.3); transition:0.3s;">
+    <h2 id="teachersCounter" style="font-size:36px; color:#7df9ff; margin-bottom:10px;">0</h2>
+    <p style="color:#ccc; font-size:16px;">Teachers</p>
+  </div>
+  <div style="flex:1; min-width:150px; background:rgba(255,255,255,0.08); backdrop-filter:blur(12px); border-radius:15px; padding:30px; box-shadow:0 0 20px rgba(0,255,255,0.3); transition:0.3s;">
+    <h2 id="staffCounter" style="font-size:36px; color:#7df9ff; margin-bottom:10px;">0</h2>
+    <p style="color:#ccc; font-size:16px;">Staff</p>
+  </div>
+</section>
+<section>
+  
+  <div class="scientist-section">
+  
+  <div class="card-track">
+     {% for i in get_scientest %}
+    <div class="scientist-card">
+      <img src="{{i.scientest_pic.url}}">
+      <h3>{{i.name}}</h3>
+      <p>{{i.description}}</p>
+    </div>
+     {% endfor %}
+  </div>
+  
+</div>
+
+</section>
+
+<!-- PRINCIPAL MESSAGE -->
+<section>
+<h2 style="text-align:center;margin-bottom:40px;">Principal's Message</h2>
+<div class="card principal">
+<img src="{{ principal_pic.image.url }}">
+<div>
+<p>
+সম্মানিত অভিভাবক ও এলাকাবাসী আসসালামু আলাইকুম।  প্রতিনিয়ত নিরলস পরিশ্রম ও যুগোপযোগী  আধুনিক পদ্ধতিতে জ্ঞান চর্চার মাধ্যমে প্রত্যেক শিক্ষার্থীর জন্য মানসম্মত শিক্ষা নিশ্চিত করতে আমরা অত্যন্ত সচেষ্ট।  একজন শিক্ষার্থীকে পারিবারিক, সামাজিক ও জাতীয় জীবনের সকল স্তরে নেতৃত্বদানের সক্ষমতা, কর্মদক্ষতা ও শিক্ষাগত যোগ্যতা  সম্পন্ন  সুনাগরিক হিসেবে সফলতার দ্বারপ্রান্তে   পৌঁছে দেওয়া এবং সৃজনশীলতা, সততা, নৈতিকতা, দেশাত্মবোধ, ধর্মীয় মূল্যবোধ,শৃঙ্খলাবোধ ও জনসেবার মনোভাব সম্পন্ন একজন আদর্শ মানুষ হিসাবে গড়ে তোলাই  আমাদের মূল  লক্ষ্য। দক্ষ শিক্ষক মন্ডলী দ্বারা সর্বক্ষণিক তত্ত্বাবধানের মাধ্যমে মানসম্মত শিক্ষাদান সহ বর্তমান শিক্ষানীতি বাস্তবায়ন এবং শিক্ষার্থীদের ভাবনা, চেতনা, সৃজনশীলতা ও কর্মদক্ষতাকে কাজে লাগিয়ে দেশ সেবায় সকলকে উদ্বুদ্ধ করাই আমাদের আন্তরিক প্রচেষ্টা। আর তাই লক্ষ ও উদ্দেশ্য বাস্তবায়নের মাধ্যমে স্কলার্স রেসিডেন্সিয়াল স্কুল দেশ ও দেশের মানুষের কাছে একটি   
+যুগোপযোগী অনুকরণীয় মডেল প্রতিষ্ঠান হিসাবে গড়ে তুলতে আমরা দৃঢ় প্রতিজ্ঞ। আমাদের এই লক্ষ্য অর্জনে সম্মানিত অভিভাবক ও এলাকাবাসীর সার্বিক সহযোগিতা অব্যাহত থাকবে দুর্গম এই পথ চলায় সমাজের সকল স্তরের মানুষকে আমরা পাশে পাব এটাই আমাদের আন্তরিক প্রত্যাশা। 
+
+</p>
+<p style="margin-top:15px;">
+ওমর আব্দুল আজিজ তালুকদার
+<br> 
+প্রধান শিক্ষক 
+<br>
+স্কলার্স রেসিডেন্সিয়াল স্কুল<br>
+কালাই, জয়পুরহাট
+</p>
+</div>
+</div>
+</section>
+
+<!-- SCHOOL FEATURES -->
+<section>
+<h2 style="text-align:center;margin-bottom:40px;">School Features</h2>
+<div class="grid">
+<div class="card feature1">এক্সপ্রেসিভ আট</div>
+<div class="card feature2">স্পোকেন ইংলিশ</div>
+<div class="card feature3">সুইমিং ও জিমনেসিয়াম</div>
+<div class="card feature4">কম্পিউটার ল্যাব</div>
+<div class="card feature5">লাইব্রেরি</div>
+<div class="card feature6">ফ্রি হ্যান্ড রাইটিং</div>
+<div class="card feature1">ক্লাব- কম্পিউটার,স্পোর্টিং, বিতর্ক, ল্যাঙ্গুয়েজ,সাইন্স</div>
+<div class="card feature2">আউটডোর ক্লাস</div>
+<div class="card feature3">হাতের লেখা- কারসিভ ও লেটারিং</div>
+</div>
+</section>
+
+<!-- CAROUSEL -->
+<section>
+  <h2 style="text-align:center;margin-bottom:40px;">Campus Highlights</h2>
+  <div class="carousel" style="position:relative;max-width:800px;margin:0 auto;overflow:hidden;border-radius:15px;">
+    
+    <div class="carousel-inner" style="display:flex;transition:transform 0.5s ease;">
+      {% for photo in for_carusol %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}" 
+             style="min-width:100%;position:relative;padding-top:50%;overflow:hidden;border-radius:15px;">
+          <img src="{{ photo.picture1.url }}" alt="{{ photo.title }}" 
+               style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">
+        </div>
+      {% empty %}
+        <div class="carousel-item active" style="min-width:100%;height:300px;display:flex;align-items:center;justify-content:center;">
+          <p style="color:#ccc;text-align:center;">No photos available.</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Navigation buttons -->
+    <button class="prev" style="position:absolute;top:50%;left:10px;transform:translateY(-50%);background:rgba(0,0,0,0.4);border:none;color:white;font-size:24px;padding:10px;cursor:pointer;border-radius:50%;">&#10094;</button>
+    <button class="next" style="position:absolute;top:50%;right:10px;transform:translateY(-50%);background:rgba(0,0,0,0.4);border:none;color:white;font-size:24px;padding:10px;cursor:pointer;border-radius:50%;">&#10095;</button>
+
+  </div>
+</section>
+
+<!-- GALLERY -->
+
+<section>
+  <h2 style="text-align:center;margin-bottom:40px;">Gallery</h2>
+  <div class="gallery" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:0 8%;">
+    {% for photo in for_gallery %}
+      <div class="gallery-card" style="border-radius:15px;overflow:hidden;background:rgba(255,255,255,0.08);backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,0.2);transition:transform 0.3s ease;">
+        <img src="{{ photo.picture1.url }}" alt="{{ photo.title }}" style="width:100%;height:200px;object-fit:cover;">
+        {% if photo.title %}
+          <div class="overlay" style="position:absolute;bottom:0;width:100%;background:rgba(0,0,0,0.45);color:white;padding:10px 15px;font-size:14px;">
+            {{ photo.title }}
+          </div>
+        {% endif %}
+      </div>
+    {% empty %}
+      <p style="color:#ccc;text-align:center;">No photos available.</p>
+    {% endfor %}
+  </div>
+</section>
+<!-- CONTACT -->
+<section>
+<h2 style="text-align:center;margin-bottom:40px;">Contact</h2>
+<div class="card contact">
+<input type="text" placeholder="Your Name">
+<input type="email" placeholder="Email">
+<textarea rows="5" placeholder="Message"></textarea>
+<button>Send Message</button>
+</div>
+</section>
+<script>
+// STAR GENERATOR
+const starsContainer=document.getElementById("stars");
+const starsContainer2=document.getElementById("stars2");
+for(let i=0;i<150;i++){
+  let star=document.createElement("div");
+  star.className="star";
+  star.style.left=Math.random()*100+"vw";
+  star.style.animationDuration=(Math.random()*10+5)+"s";
+  star.style.opacity=Math.random();
+  starsContainer.appendChild(star);
+}
+for(let i=0;i<120;i++){
+  let star=document.createElement("div");
+  star.className="star2";
+  star.style.left=Math.random()*100+"vw";
+  star.style.animationDuration=(Math.random()*12+6)+"s";
+  star.style.opacity=Math.random();
+  starsContainer2.appendChild(star);
+}
+
+// COMET GENERATOR
+const cometsContainer=document.getElementById("comets");
+for(let i=0;i<8;i++){
+  let comet=document.createElement("div");
+  comet.className="comet";
+  comet.style.left=Math.random()*100+"vw";
+  comet.style.animationDuration=(Math.random()*10+5)+"s";
+  comet.style.opacity=Math.random();
+  cometsContainer.appendChild(comet);
+}
+
+// BUBBLE GENERATOR
+const bubblesContainer=document.getElementById("bubbles");
+for(let i=0;i<50;i++){
+  let bubble=document.createElement("div");
+  bubble.className="bubble";
+  bubble.style.left=Math.random()*100+"vw";
+  bubble.style.width=bubble.style.height=(Math.random()*10+5)+"px";
+  bubble.style.animationDuration=(Math.random()*15+5)+"s";
+  bubble.style.opacity=Math.random();
+  bubblesContainer.appendChild(bubble);
+}
+
+
+// CAROUSEL JS
+const carouselInner = document.querySelector('.carousel-inner');
+const items = document.querySelectorAll('.carousel-item');
+let index = 0;
+
+// Next button
+document.querySelector('.next').addEventListener('click', () => {
+  index = (index + 1) % items.length;
+  updateCarousel();
+});
+
+// Prev button
+document.querySelector('.prev').addEventListener('click', () => {
+  index = (index - 1 + items.length) % items.length;
+  updateCarousel();
+});
+
+// Update carousel transform
+function updateCarousel() {
+  carouselInner.style.transform = `translateX(-${index * 100}%)`;
+}
+
+// Auto slide every 2 seconds
+setInterval(() => {
+  index = (index + 1) % items.length;
+  updateCarousel();
+}, 4000);
+</script>
+
+<!-- animation-->
+ <script>
+// Function to animate number counting
+function animateCounter(id, end) {
+    let el = document.getElementById(id);
+    let count = 0;
+    let step = Math.ceil(end / 100); // 100 steps animation
+    let interval = setInterval(() => {
+        count += step;
+        if (count >= end) {
+            count = end;
+            clearInterval(interval);
+        }
+        el.textContent = count;
+    }, 20); // interval speed in ms
+}
+
+// Context variables from Django
+animateCounter('studentsCounter', {{ students_count }});
+animateCounter('teachersCounter', {{ teachers_count }});
+animateCounter('staffCounter', {{ staff_count }});
+</script>
+{% endblock %}

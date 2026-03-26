@@ -1,0 +1,186 @@
+{% extends "navbar.html" %}
+{% block content %}
+<style>
+/* RESET */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+/* BODY */
+body{
+  background:#0b0f2a;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* PAGE HEADER */
+.page-header{
+  text-align:center;
+  padding:80px 20px 40px;
+}
+.page-header h1{
+  font-size:48px;
+  color:#7df9ff;
+  margin-bottom:15px;
+}
+.page-header p{
+  color:#aaa;
+  font-size:18px;
+}
+
+/* CONTACT FORM */
+.contact-container{
+  max-width:700px;
+  width:92%;
+  margin:0 auto 80px;
+  padding:40px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(15px);
+  border-radius:15px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+.contact-container:hover{
+  transform:translateY(-5px);
+}
+.contact-container h2{
+  text-align:center;
+  color:#7df9ff;
+  margin-bottom:30px;
+  font-size:28px;
+}
+
+/* INPUTS & TEXTAREA */
+.contact-container label{
+  display:block;
+  margin-bottom:5px;
+  font-size:14px;
+  color:#ccc;
+}
+.contact-container input,
+.contact-container textarea{
+  width:100%;
+  padding:14px 15px;
+  margin-bottom:20px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  background:rgba(255,255,255,0.1);
+  color:white;
+  transition: background 0.3s ease;
+}
+.contact-container input:focus,
+.contact-container textarea:focus{
+  outline:none;
+  background:rgba(125,249,255,0.15);
+}
+
+/* BUTTON */
+.contact-container button{
+  width:100%;
+  padding:16px;
+  background:#7df9ff;
+  border:none;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:16px;
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+}
+.contact-container button:hover{
+  transform:scale(1.05);
+  box-shadow:0 10px 25px #7df9ff;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* TABLET */
+@media(max-width:768px){
+  .page-header{
+    padding:60px 15px 30px;
+  }
+
+  .page-header h1{
+    font-size:36px;
+  }
+
+  .page-header p{
+    font-size:16px;
+  }
+
+  .contact-container{
+    padding:30px;
+  }
+}
+
+/* MOBILE */
+@media(max-width:480px){
+  .page-header{
+    padding:50px 10px 25px;
+  }
+
+  .page-header h1{
+    font-size:26px;
+  }
+
+  .page-header p{
+    font-size:14px;
+  }
+
+  .contact-container{
+    padding:20px;
+    border-radius:12px;
+  }
+
+  .contact-container h2{
+    font-size:22px;
+  }
+
+  .contact-container input,
+  .contact-container textarea{
+    font-size:14px;
+    padding:12px;
+  }
+
+  .contact-container button{
+    padding:14px;
+    font-size:14px;
+  }
+}
+
+/* EXTRA SMALL */
+@media(max-width:350px){
+  .page-header h1{
+    font-size:22px;
+  }
+
+  .contact-container{
+    padding:15px;
+  }
+}
+</style>
+
+<div class="page-header">
+  <h1>Contact Us</h1>
+  <p>We’d love to hear from you. Fill out the form below!</p>
+</div>
+
+<div class="contact-container">
+  <h2>Send a Message</h2>
+  <form action="#" method="POST">
+    <label for="name">Your Name</label>
+    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+    <label for="email">Your Email</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+    <label for="message">Your Message</label>
+    <textarea id="message" name="message" rows="6" placeholder="Type your message" required></textarea>
+
+    <button type="submit">Send Message</button>
+  </form>
+</div>
+{% endblock %}

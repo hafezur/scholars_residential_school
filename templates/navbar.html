@@ -1,0 +1,245 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scholars Residential School</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+body{
+  background:#0b0f2a;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* ================= LOGO + SCHOOL NAME ================= */
+.logo-container{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.school-logo{
+  width:50px;
+  height:50px;
+  object-fit:contain;
+  border-radius:10%;
+}
+
+.gradient-text{
+  font-size:22px;
+  font-weight:700;
+  background: linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ================= NAVIGATION ================= */
+header{
+  position:sticky;
+  top:0;
+  background:#0f172a;
+  padding:14px 8%;
+  z-index:1000;
+}
+
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+/* LINKS */
+nav ul{
+  display:flex;
+  list-style:none;
+  align-items:center;
+}
+
+nav ul li{
+  margin-left:20px;
+}
+
+nav ul li a{
+  color:white;
+  text-decoration:none;
+}
+
+/* BUTTON STYLE */
+.auth-btn{
+  padding:6px 12px;
+  border:1px solid #00d4ff;
+  border-radius:6px;
+}
+.auth-btn:hover{
+  background:#00d4ff;
+  color:black;
+}
+
+/* PROFILE */
+.profile-menu{
+  position:relative;
+}
+
+.profile-icon img{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  cursor:pointer;
+  border:2px solid #00d4ff;
+}
+
+/* DROPDOWN */
+.dropdown{
+  position:absolute;
+  top:50px;
+  right:0;
+  background:#1c2147;
+  border-radius:10px;
+  padding:10px;
+  display:none;
+  min-width:150px;
+}
+
+.dropdown a, .dropdown p{
+  display:block;
+  padding:8px;
+  color:white;
+  text-decoration:none;
+}
+
+.dropdown a:hover{
+  background:#00d4ff;
+  color:black;
+}
+
+/* MOBILE */
+.menu-btn{
+  display:none;
+  font-size:28px;
+  cursor:pointer;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:768px){
+  .menu-btn{
+    display:block;
+  }
+
+  nav ul{
+    position:absolute;
+    top:60px;
+    left:0;
+    width:100%;
+    background:#0f172a;
+    flex-direction:column;
+    display:none;
+  }
+
+  nav ul.active{
+    display:flex;
+  }
+
+  nav ul li{
+    margin:10px 0;
+  }
+
+  .logo-container{
+    gap:8px;
+  }
+  .school-logo{
+    width:40px;
+    height:40px;
+  }
+  .gradient-text{
+    font-size:18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<nav>
+
+<!-- LOGO + SCHOOL NAME -->
+<div class="logo-container">
+  <img src="{{ logo.image.url }}" alt="School Logo" class="school-logo">
+  <span class="gradient-text">স্কলার্স রেসিডেনশিয়াল স্কুল</span>
+</div>
+
+<!-- MOBILE MENU BUTTON -->
+<span class="menu-btn" onclick="toggleMenu()">☰</span>
+
+<!-- NAV LINKS -->
+<ul id="nav-links">
+  <li><a href="{% url 'home_function' %}">Home</a></li>
+  <li><a href="{% url 'about_function' %}">About</a></li>
+  <li><a href="{% url 'feature_function' %}">Features</a></li>
+  <li><a href="{% url 'galary_function' %}">Gallery</a></li>
+  <li><a href="{% url 'contact_function' %}">Contact</a></li>
+  <li><a href="{% url 'news&event' %}">News&Event</a></li>
+
+  {% if user.is_authenticated %}
+  <!-- PROFILE -->
+  <li class="profile-menu">
+    <div class="profile-icon" onclick="toggleProfileMenu()">
+      {% if user.userprofile.profile_pic %}
+        <img src="{{ user.userprofile.profile_pic.url }}">
+      {% else %}
+        <img src="https://via.placeholder.com/40">
+      {% endif %}
+    </div>
+    <div class="dropdown" id="profileDropdown">
+      <p>{{ user.username }}</p>
+      <a href="{% url 'userDashboard' %}">Dashboard</a>
+      <a href="{% url 'updateProfile' %}">Profile</a>
+      <a href="{% url 'logout' %}">Logout</a>
+    </div>
+  </li>
+  {% else %}
+  <li><a class="auth-btn" href="{% url 'get_login' %}">Login</a></li>
+  <li><a class="auth-btn" href="{% url 'sign_up' %}">Sign Up</a></li>
+  {% endif %}
+</ul>
+
+</nav>
+</header>
+
+<!-- ================= CONTENT ================= -->
+{% block content %}
+{% endblock %}
+
+<!-- FOOTER -->
+{% include "footer.html"%}
+
+<!-- ================= SCRIPTS ================= -->
+<script>
+function toggleMenu(){
+  document.getElementById("nav-links").classList.toggle("active");
+}
+
+function toggleProfileMenu(){
+  const menu = document.getElementById("profileDropdown");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+
+/* CLICK OUTSIDE CLOSE */
+window.onclick = function(e){
+  if (!e.target.closest('.profile-menu')){
+    document.getElementById("profileDropdown").style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+{% extends "navbar.html" %}
+{% block content %}
+
+<style>
+.signup-wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:80vh;
+    padding:20px;
+}
+
+/* BOX */
+.box{
+    background:#1c2147;
+    padding:40px;
+    border-radius:10px;
+    width:100%;
+    max-width:360px;
+    text-align:center;
+    color:white;
+}
+
+/* TITLE */
+h2{
+    color:#00d4ff;
+}
+
+/* INPUT */
+input{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border:none;
+    border-radius:5px;
+    font-size:14px;
+}
+
+/* BUTTON */
+button{
+    width:100%;
+    padding:10px;
+    background:#00d4ff;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+/* LINK */
+a{
+    color:#00d4ff;
+    text-decoration:none;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* TABLET */
+@media (max-width: 768px){
+    .box{
+        padding:30px;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 480px){
+    .signup-wrapper{
+        padding:15px;
+    }
+
+    .box{
+        padding:25px 20px;
+        border-radius:8px;
+    }
+
+    h2{
+        font-size:20px;
+    }
+
+    input, button{
+        font-size:13px;
+        padding:9px;
+    }
+}
+
+/* EXTRA SMALL */
+@media (max-width: 350px){
+    .box{
+        padding:20px 15px;
+    }
+
+    h2{
+        font-size:18px;
+    }
+}
+</style>
+
+<div class="signup-wrapper">
+    <div class="box">
+        <h2>Create Account</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <input type="text" name="username" placeholder="Username">
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password1" placeholder="Password">
+            <input type="password" name="password2" placeholder="Confirm Password">
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <p>Already have account? <a href="{% url 'get_login' %}">Login</a></p>
+    </div>
+</div>
+
+{% endblock %}

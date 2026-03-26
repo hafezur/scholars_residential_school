@@ -1,0 +1,242 @@
+{% extends "navbar.html"%}
+{% block content %}
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background: linear-gradient(135deg,#0b0f2a,#1a1f4d);
+    color:white;
+}
+
+/* CONTAINER */
+.container{
+    width:95%;
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+}
+
+/* TITLE */
+h1{
+    text-align:center;
+    background: linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* PROFILE CARD */
+.profile-card{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:20px;
+    border-radius:20px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    box-shadow:0 0 20px rgba(0,0,0,0.4);
+    margin-bottom:20px;
+    flex-wrap:wrap;
+}
+
+.profile-card img{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid transparent;
+    background: linear-gradient(45deg,#feda75,#d62976,#4f5bd5) border-box;
+}
+
+.profile-info h2{
+    margin:0;
+}
+
+.profile-info p{
+    margin:5px 0;
+}
+
+/* BUTTONS */
+.btn{
+    padding:8px 12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    margin-right:10px;
+    margin-top:5px;
+    background: linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);
+    color:white;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 10px rgba(255,255,255,0.3);
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+/* CARD */
+.card{
+    padding:20px;
+    border-radius:15px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    text-align:center;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+
+.card h3{
+    margin-bottom:10px;
+}
+
+/* FOOTER TEXT */
+.small{
+    color:#aaa;
+    font-size:14px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* TABLET */
+@media (max-width: 768px){
+    .container{
+        padding:15px;
+    }
+
+    .profile-card{
+        padding:15px;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 480px){
+
+    h1{
+        font-size:22px;
+    }
+
+    .profile-card{
+        flex-direction:column;
+        align-items:flex-start;
+        text-align:left;
+    }
+
+    .profile-card img{
+        width:70px;
+        height:70px;
+    }
+
+    .btn{
+        width:100%;
+        margin-right:0;
+    }
+
+    .card{
+        padding:15px;
+    }
+
+    .card h3{
+        font-size:18px;
+    }
+
+    .small{
+        font-size:13px;
+    }
+}
+
+/* EXTRA SMALL */
+@media (max-width: 350px){
+    h1{
+        font-size:20px;
+    }
+
+    .profile-card img{
+        width:60px;
+        height:60px;
+    }
+}
+</style>
+
+<div class="container">
+
+<h1>Welcome, {{ user.username }}</h1>
+
+<!-- PROFILE -->
+<div class="profile-card">
+
+    {% if profile.profile_pic %}
+    <img src="{{ profile.profile_pic.url }}">
+    {% else %}
+    <img src="https://via.placeholder.com/80">
+    {% endif %}
+
+    <div class="profile-info">
+        <h2>{{ user.username }}</h2>
+        <p>{{ user.email }}</p>
+
+        <a href="{% url 'updateProfile' %}">
+            <button class="btn">✏️ Edit Profile</button>
+        </a>
+
+        <a href="{% url 'logout' %}">
+            <button class="btn">Logout</button>
+        </a>
+    </div>
+
+</div>
+
+<!-- DASHBOARD CARDS -->
+<div class="grid">
+
+<div class="card">
+    <h3>📰 News</h3>
+    <p class="small">See news & events</p>
+    <button class="btn">Go</button>
+</div>
+
+<div class="card">
+    <h3>🖼️ Gallery</h3>
+    <p class="small">See images</p>
+    <button class="btn">Go</button>
+</div>
+
+<div class="card">
+    <h3>👨‍🔬 Scientists</h3>
+    <p class="small">See scientists</p>
+    <button class="btn">Go</button>
+</div>
+
+<div class="card">
+    <h3>🔬 Science Club</h3>
+    <p class="small">See members</p>
+    <button class="btn">Go</button>
+</div>
+
+<div class="card">
+    <h3>💻 Computer Club</h3>
+    <p class="small">See members</p>
+    <button class="btn">Go</button>
+</div>
+
+<div class="card">
+    <h3>🎯 Other Clubs</h3>
+    <p class="small">See clubs</p>
+    <button class="btn">Go</button>
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

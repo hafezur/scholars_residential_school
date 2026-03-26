@@ -1,0 +1,145 @@
+{% extends "navbar.html" %}
+{% block content %}
+
+<style>
+/* ================= RESET ================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+/* ================= BODY ================= */
+body{
+  background:#0b0f2a;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* ================= PAGE HEADER ================= */
+.page-header{
+  text-align:center;
+  padding:80px 20px 40px;
+}
+.page-header h1{
+  font-size:48px;
+  color:#7df9ff;
+  margin-bottom:15px;
+}
+.page-header p{
+  color:#aaa;
+  font-size:18px;
+}
+
+/* ================= NEWS GRID ================= */
+.news-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:25px;
+  padding:0 8%;
+  margin-bottom:50px;
+}
+
+/* ================= NEWS CARD ================= */
+.news-card{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(12px);
+  border-radius:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  overflow:hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display:flex;
+  flex-direction:column;
+}
+.news-card img, .news-card video{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+.news-card-content{
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+.news-card-content h3{
+  font-size:20px;
+  color:#7df9ff;
+  margin-bottom:10px;
+}
+.news-card-content p{
+  font-size:14px;
+  color:#ddd;
+  margin-bottom:15px;
+  flex-grow:1;
+}
+.news-card-content span.date{
+  font-size:12px;
+  color:#aaa;
+  margin-bottom:10px;
+}
+.news-card-content a.read-more{
+  text-decoration:none;
+  color:#0b0f2a;
+  background:#7df9ff;
+  padding:8px 15px;
+  border-radius:8px;
+  font-size:14px;
+  font-weight:bold;
+  align-self:flex-start;
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+}
+.news-card-content a.read-more:hover{
+  transform:scale(1.05);
+  box-shadow:0 8px 20px #7df9ff;
+}
+.news-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 15px 40px #7df9ff;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:768px){
+  .page-header h1{font-size:36px;}
+  .page-header p{font-size:16px;}
+  .news-card img, .news-card video{height:160px;}
+}
+</style>
+
+<div class="page-header">
+  <h1>News & Events</h1>
+  <p>Stay updated with the latest happenings at Scholars Residential School</p>
+</div>
+
+<div class="news-grid">
+  {% for i in item %}
+  <div class="news-card">
+    {% if i.video_file %}
+      <video controls>
+        <source src="{{ i.video_file.url }}" type="video/mp4">
+        আপনার ব্রাউজার ভিডিও ফাইলটি সমর্থন করে না।
+      </video>
+    {% elif i.image %}
+      <img src="{{ i.image.url }}" alt="{{ i.title }}">
+    {% else %}
+      <img src="https://source.unsplash.com/400x250/?school,event" alt="{{ i.title }}">
+    {% endif %}
+
+    <div class="news-card-content">
+      <h3>{{ i.title }}</h3>
+      <p>{{ i.description|truncatewords:25 }}</p>
+      {% if i.type == 'event' %}
+        <span class="date">{{ i.start_date }}{% if i.end_date %} - {{ i.end_date }}{% endif %}</span>
+      {% else %}
+        <span class="date">{{ i.created_at|date:"M d, Y" }}</span>
+      {% endif %}
+      <a href="" class="read-more">Read More</a>
+    </div>
+  </div>
+  {% empty %}
+    <p style="color:white; grid-column:1/-1; text-align:center;">No news or events found.</p>
+  {% endfor %}
+</div>
+
+{% endblock %}
